@@ -34,9 +34,18 @@ const handleSignIn=async () => {
         const result=await axios.post(`${serverUrl}/api/auth/signin`,{
             email,password,
         },{withCredentials:true})
-        dispatch(setUserData(result.data))
-        setErr("")
-        setloading(false)
+// 🔥 SAVE TOKEN (MAIN FIX)
+localStorage.setItem("token", result.data.token);
+
+// keep your redux logic
+dispatch(setUserData(result.data.user));
+
+setErr("");
+setloading(false);
+
+// 🔥 REDIRECT AFTER LOGIN
+navigate("/");
+
     } catch (error) {
       setErr(error?.response?.data?.message) 
        setloading(false)
@@ -53,7 +62,15 @@ try {
              email:result.user.email,
 
     },{withCredentials:true})
-    dispatch(setUserData(data))
+ // 🔥 SAVE TOKEN
+localStorage.setItem("token", data.token);
+
+// keep redux user
+dispatch(setUserData(data.user));
+
+// 🔥 REDIRECT
+navigate("/");
+
   } catch (error) {
     console.log(error)
 }
