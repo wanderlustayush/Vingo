@@ -5,7 +5,7 @@ import { FaUtensils } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { FaPen } from "react-icons/fa";
 import Item from '../../../backend/models/item.model.js';
-import OwnerItemCard from './ownerItemCard.jsx';
+import OwnerItemCard from './OwnerItemCard.jsx';
 
 
 
