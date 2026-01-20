@@ -5,7 +5,7 @@ import { serverUrl } from '../App'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { IoMdArrowRoundBack } from "react-icons/io";
-import DeliveryBoyTracking from '../components/deliveryBoyTracking'
+import DeliveryBoyTracking from '../components/DeliveryBoyTracking'
 import { useSelector } from 'react-redux'
 
 function TrackOrderPage() {
