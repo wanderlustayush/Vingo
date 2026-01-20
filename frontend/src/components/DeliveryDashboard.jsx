@@ -5,7 +5,7 @@ import axios from 'axios'
 import { serverUrl } from '../App'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import DeliveryBoyTracking from './deliveryBoyTracking'
+import DeliveryBoyTracking from './DeliveryBoyTracking'
 
 
 
