@@ -1,6 +1,6 @@
 # 🍔 Vingo – Food Delivery App (MERN)
 
-A full-stack food delivery web application built using the **MERN stack** with real-time order tracking, JWT authentication, and role-based dashboards.
+A full-stack food delivery web application built using the **MERN stack** with Real-time order tracking, JWT authentication, and role-based dashboards.
 
 ---
 
