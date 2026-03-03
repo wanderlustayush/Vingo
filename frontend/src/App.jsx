@@ -23,6 +23,7 @@ import TrackOrderPage from './pages/TrackOrderPage'
 import Shop from './pages/Shop'
 import { io } from 'socket.io-client'
 import { setSocket } from './redux/userSlice'
+import LandingPage from './pages/LandingPage'
 export const serverUrl="https://vingo-backend-r3pg.onrender.com"
 
 
@@ -60,7 +61,8 @@ return (
   <Route path='/signup' element={!userData?<SignUp/>:<Navigate to={"/"}/>}/>
   <Route path='/signin' element={!userData?<SignIn/>:<Navigate to={"/"}/>}/>
   <Route path='/forgot-password' element={!userData?<Forgotpassword/>:<Navigate to={"/"}/>}/>
-   <Route path='/' element={userData?<Home/>:<Navigate to={"/signin"}/>}/>
+   <Route path='/' element={!userData ? <LandingPage/> : <Home/>}/>
+<Route path='/home' element={userData?<Home/>:<Navigate to={"/"}/>}/>
    <Route path='/create-edit-shop' element={userData?<CreateEditShop/>:<Navigate to={"/signin"}/>}/>
    <Route path='/add-item' element={userData?<AddItem/>:<Navigate to={"/signin"}/>}/>
    <Route path='/edit-item/:itemId' element={userData?<EditItem/>:<Navigate to={"/signin"}/>}/>
