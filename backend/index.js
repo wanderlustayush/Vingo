@@ -24,7 +24,7 @@ const io=new Server(server,{
     cors:{
     origin:"https://vingo-p6ag.onrender.com",
     credentials:true,
-    methods: ["GET", "POST"]
+    methods:['POST',"GET"]
 }
 
 
@@ -36,6 +36,7 @@ app.set("io",io)
 
 const port=process.env.PORT || 5000;
 app.use(cors({
+    
     origin:"https://vingo-p6ag.onrender.com",
     credentials:true
 }))
