@@ -15,7 +15,7 @@ const LandingPage = () => {
   }, [])
 
   return (
-    <>
+    <div className="landing-page">
       {/* NAV */}
       <nav>
         <div className="logo">Vin<span>go</span></div>
@@ -132,7 +132,7 @@ const LandingPage = () => {
       <footer>
         <p>© 2026 <span>Vingo</span> · Made with ❤️ for food lovers everywhere</p>
       </footer>
-    </>
+    </div>
   )
 }
 
