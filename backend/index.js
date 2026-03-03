@@ -24,7 +24,7 @@ const io=new Server(server,{
     cors:{
     origin:"https://vingo-p6ag.onrender.com",
     credentials:true,
-    methods:['POST',"GET"]
+    methods: ["GET", "POST"]
 }
 
 
