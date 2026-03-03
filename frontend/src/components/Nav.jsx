@@ -21,25 +21,27 @@ function Nav() {
   const [query,setQuery]=useState("")
   const dispatch = useDispatch();
   const navigate=useNavigate()
-  const handleLogOut = async () => {
+const handleLogOut = async () => {
     try {
-      const result = await axios.get(`${serverUrl}/api/auth/signout`, {
-        withCredentials: true,
-      });
-      dispatch(setUserData(null));
+        await axios.get(`${serverUrl}/api/auth/signout`)
+        localStorage.removeItem("token")
+        dispatch(setUserData(null))
     } catch (error) {
-      console.log(error);
+        console.log(error)
     }
-  }
+}
 
 
-const handleSearchItems=async () => {
-  try {
-    const result=await axios.get(`${serverUrl}/api/item/search-items?query=${query}&city=${currentCity}`,{withCredentials:true})
-dispatch(setSearchItems(result.data))
-  } catch (error) {
-    console.log(error)
-  }
+const handleSearchItems = async () => {
+    try {
+        const token = localStorage.getItem("token")
+        const result = await axios.get(`${serverUrl}/api/item/search-items?query=${query}&city=${currentCity}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        dispatch(setSearchItems(result.data))
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 useEffect(()=>{

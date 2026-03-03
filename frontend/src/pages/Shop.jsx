@@ -16,16 +16,18 @@ function Shop() {
     const [items,setItems]=useState([])
     const [shop,setShop]=useState([])
     const navigate=useNavigate()
-    const handleShop=async () => {
-        try {
-            const result=await axios.get(`${serverUrl}/api/item/get-by-shop/${shopId}`,{withCredentials:true})
-      setShop(result.data.shop)
-      setItems(result.data.items)
-
-        } catch (error) {
-            console.log(error)
-        }
+  const handleShop = async () => {
+    try {
+        const token = localStorage.getItem("token")
+        const result = await axios.get(`${serverUrl}/api/item/get-by-shop/${shopId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        setShop(result.data.shop)
+        setItems(result.data.items)
+    } catch (error) {
+        console.log(error)
     }
+}
     useEffect(()=>{
 handleShop()
     },[shopId])

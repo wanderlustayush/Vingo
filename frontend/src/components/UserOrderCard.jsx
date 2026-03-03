@@ -17,16 +17,18 @@ const[selectedRating,setSelectedRating]=useState({})
         })
     }
 
-const handleRating=async (itemId,rating) => {
-  try {
-    const result=await axios.post(`${serverUrl}/api/item/rating`,{itemId,rating},{withCredentials:true})
-
-    setSelectedRating(prev=>({
-      ...prev,[itemId]:rating
-    }))
-  } catch (error) {
-    console.log(error)
-  }
+const handleRating = async (itemId, rating) => {
+    try {
+        const token = localStorage.getItem("token")
+        await axios.post(`${serverUrl}/api/item/rating`, { itemId, rating }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        setSelectedRating(prev => ({
+            ...prev, [itemId]: rating
+        }))
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

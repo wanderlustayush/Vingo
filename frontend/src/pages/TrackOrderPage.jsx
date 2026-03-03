@@ -14,15 +14,17 @@ function TrackOrderPage() {
     const navigate=useNavigate()
     const {socket}=useSelector(state=>state.user)
     const [liveLocation,setLiveLocations]=useState({})
-    const handleGetOrder=async () => {
-        try {
-            const result=await axios.get(`${serverUrl}/api/order/get-order-by-id/${orderId}`,{withCredentials:true})
-          setCurrentOrder(result.data)
-
-        } catch (error) {
-            console.log(error)
-        }
+   const handleGetOrder = async () => {
+    try {
+        const token = localStorage.getItem("token")
+        const result = await axios.get(`${serverUrl}/api/order/get-order-by-id/${orderId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        setCurrentOrder(result.data)
+    } catch (error) {
+        console.log(error)
     }
+}
 
 useEffect(()=>{
 socket.on('updateDeliveryLocation',({deliveryBoyId,latitude,longitude})=>{

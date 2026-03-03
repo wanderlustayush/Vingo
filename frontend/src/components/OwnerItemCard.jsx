@@ -12,14 +12,17 @@ import { setMyShopData } from '../redux/ownerSlice';
 function OwnerItemCard({data}) {
     const navigate=useNavigate()
     const dispatch=useDispatch()
-    const handleDelete=async () => {
-      try {
-        const result=await axios.get(`${serverUrl}/api/item/delete/${data._id}`,{withCredentials:true})
+const handleDelete = async () => {
+    try {
+        const token = localStorage.getItem("token")
+        const result = await axios.get(`${serverUrl}/api/item/delete/${data._id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
         dispatch(setMyShopData(result.data))
-      } catch (error) {
+    } catch (error) {
         console.log(error)
-      }
     }
+}
   return (
     <div className='flex bg-white rounded-lg shadow-md overflow-hidden border border-[#ff4d2d] w-full max-w-2xl'>
       <div className='w-36 flex-shrink-0 bg-gray-50'>

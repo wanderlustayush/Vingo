@@ -40,7 +40,10 @@ function App() {
 
 
 useEffect(()=>{
-const socketInstance=io(serverUrl,{withCredentials:true})
+const socketInstance=io(serverUrl,{
+    withCredentials:true,
+    auth:{ token: localStorage.getItem("token") }
+})
 dispatch(setSocket(socketInstance))
 socketInstance.on('connect',()=>{
 if(userData){

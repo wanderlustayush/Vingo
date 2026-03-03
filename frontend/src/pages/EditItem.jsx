@@ -42,44 +42,46 @@ setFrontendImage(URL.createObjectURL(file))
 }
 
 
-const handleSubmit=async (e)=>{
-e.preventDefault()
-setLoading(true)
-try {
-    const formData=new FormData();
-    formData.append("name",name)
-    formData.append("category",category)
-    formData.append("foodType",foodType)
-    formData.append("price",price)
-
-
-
-    if(backendImage){
-        formData.append("image",backendImage)
+const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+        const token = localStorage.getItem("token")
+        const formData = new FormData();
+        formData.append("name", name)
+        formData.append("category", category)
+        formData.append("foodType", foodType)
+        formData.append("price", price)
+        if (backendImage) {
+            formData.append("image", backendImage)
+        }
+        const result = await axios.post(`${serverUrl}/api/item/edit-item/${itemId}`, formData, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        dispatch(setMyShopData(result.data))
+        setLoading(false)
+        navigate("/")
+    } catch (error) {
+        console.log(error)
+        setLoading(false)
     }
-    
-    const result=await axios.post(`${serverUrl}/api/item/edit-item/${itemId}`,formData,{withCredentials:true})
-    dispatch(setMyShopData(result.data))
-    setLoading(false)
-    navigate("/")
-} catch (error) {
-    console.log(error)
-    setLoading(false)
-}
 }
 
 useEffect(()=>{
 
-    const handleGetItemById=async () => {
+    const handleGetItemById = async () => {
         try {
-            const result=await axios.get(`${serverUrl}/api/item/get-by-id/${itemId}`,{withCredentials:true})
+            const token = localStorage.getItem("token")
+            const result = await axios.get(`${serverUrl}/api/item/get-by-id/${itemId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
             setCurrentItem(result.data)
         } catch (error) {
             console.log(error)
         }
     }
-handleGetItemById()
-},[itemId])
+    handleGetItemById()
+}, [itemId])
 
 useEffect(()=>{
  setName(currentItem?.name || "")

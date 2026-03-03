@@ -9,16 +9,18 @@ import { useState } from "react";
 function OwnerOrderCard({ data }) {
   const [availableBoys,setAvailableBoys]=useState([])
     const dispatch=useDispatch()
-    const handleUpdateStatus=async (orderId,shopId,status) => {
-        try {
-            const result=await axios.post(`${serverUrl}/api/order/update-status/${orderId}/${shopId}`,{status},{withCredentials:true})
-            dispatch(updateOrderStatus({orderId,shopId,status}))
-           setAvailableBoys(result.data.availableBoys)
-           console.log(result.data) 
-        } catch (error) {
-            console.log(error)
-        }
+    const handleUpdateStatus = async (orderId, shopId, status) => {
+    try {
+        const token = localStorage.getItem("token")
+        const result = await axios.post(`${serverUrl}/api/order/update-status/${orderId}/${shopId}`, { status }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        dispatch(updateOrderStatus({ orderId, shopId, status }))
+        setAvailableBoys(result.data.availableBoys)
+    } catch (error) {
+        console.log(error)
     }
+}
   return (
     <div className="bg-white rounded-lg shadow p-4 space-y-4">
       <div>

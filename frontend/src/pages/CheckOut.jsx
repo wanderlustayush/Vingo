@@ -76,19 +76,22 @@ const getCurrentLocation=()=>{
        }
     }
 
-const handlePlaceOrder=async () => {
+const handlePlaceOrder = async () => {
     try {
-        const result=await axios.post(`${serverUrl}/api/order/place-order`,{
+        const token = localStorage.getItem("token")
+        const result = await axios.post(`${serverUrl}/api/order/place-order`, {
             paymentMethod,
-            deliveryAddress:{
-                text:addressInput,
-                latitude:location.lat,
-                longitude:location.lon
+            deliveryAddress: {
+                text: addressInput,
+                latitude: location.lat,
+                longitude: location.lon
             },
             totalAmount,
             cartItems
-        },{withCredentials:true})
-           dispatch(addMyOrder(result.data))
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        dispatch(addMyOrder(result.data))
         navigate("/order-placed")
     } catch (error) {
         console.log(error)

@@ -38,27 +38,29 @@ setBackendImage(file)
 setFrontendImage(URL.createObjectURL(file))
 }
 
-const handleSubmit=async (e)=>{
-e.preventDefault()
-setLoading(true)
-try {
-    const formData=new FormData();
-    formData.append("name",name)
-    formData.append("category",category)
-    formData.append("foodType",foodType)
-    formData.append("price",price)
-    if(backendImage){
-        formData.append("image",backendImage)
+const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+        const token = localStorage.getItem("token")
+        const formData = new FormData();
+        formData.append("name", name)
+        formData.append("category", category)
+        formData.append("foodType", foodType)
+        formData.append("price", price)
+        if (backendImage) {
+            formData.append("image", backendImage)
+        }
+        const result = await axios.post(`${serverUrl}/api/item/add-item`, formData, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        dispatch(setMyShopData(result.data))
+        setLoading(false)
+        navigate("/")
+    } catch (error) {
+        console.log(error)
+        setLoading(false)
     }
-    
-    const result=await axios.post(`${serverUrl}/api/item/add-item`,formData,{withCredentials:true})
-    dispatch(setMyShopData(result.data))
-  setLoading(false)
-  navigate("/")
-} catch (error) {
-    console.log(error)
-    setLoading(false)
-}
 }
 
   return (
